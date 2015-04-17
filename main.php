@@ -20,7 +20,13 @@ if (isset($_POST['email']) and isset($_POST['password'])){
     }
 }
 // if the user is logged in Greets the user with message
+
 if (isset($_SESSION['email'])) {
+
+
+// Qiming, if you require('') the logged in site page here it will redirect there on successful login
+
+
     $email = $_SESSION['email'];
     echo "Hai " . $email . "
     ";
