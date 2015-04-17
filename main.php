@@ -1,6 +1,6 @@
 <?php  //Start the Session
 session_start(); 
-//session_start();
+
 require('connect.php');
 // check for form submission
 if (isset($_POST['email']) and isset($_POST['password'])){
