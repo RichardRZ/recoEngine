@@ -18,6 +18,12 @@
                                         $_SESSION['email_fail']=false;
                                     }
                                  ?>
+                                 <?php
+                                    if(isset($_SESSION['movie_fail']) && $_SESSION['movie_fail']==true ){
+                                        echo '<div class="alert alert-warning" role="alert">Please search and select movies from the dropdown menu, as well as rate every movie</div>';
+                                        $_SESSION['movie_fail']=false;
+                                    }
+                                 ?>
                                 <div class="form-group">
                                     <label for="email" class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
@@ -44,7 +50,7 @@
                                     <label for="occupation" class="col-md-3 control-label">Gender</label>
                                     <div class="col-md-9">
                                       <!-- <label for="sel1">Select list:</label> -->
-                                      <select name="gender" class="form-control" id="sel1">
+                                      <select name="gender" class="form-control" id="sel12">
                                         <option>Male</option>
                                         <option>Female</option>
                                       </select>
@@ -55,7 +61,7 @@
                                     <label for="occupation" class="col-md-3 control-label">Occupation</label>
                                     <div class="col-md-9">
                                       <!-- <label for="sel1">Select list:</label> -->
-                                      <select name="occupation" class="form-control" id="sel1">
+                                      <select name="occupation" class="form-control" id="sel12">
                                         <?php require('occupation_list.php') ?>
                                       </select>
                                     </div>
@@ -74,7 +80,7 @@
                                         <input type="text"  class="form-control" id="keyword1" name="movie1" placeholder="Search" required>
                                         <div id="results1" class="list=group">
                                         </div>
-                                    <input id="movie1rating" name="movie1rating" class="rating" data-size="xs" data-step="1">
+                                    <input id="movie1rating" name="movie1rating" class="rating" data-size="xs" data-step="1" required>
                                     </div>
                                 </div>
                                <div class="form-group">
@@ -83,7 +89,7 @@
                                         <input type="text"  class="form-control" id="keyword2" name="movie2" placeholder="Search" required>
                                         <div id="results2" class="list=group">
                                         </div>
-                                        <input id="movie2rating" name="movie2rating"  class="rating" data-size="xs">
+                                        <input id="movie2rating" name="movie2rating"  class="rating" data-size="xs" data-step="1" required>
                                     </div>
                                 </div>
                                <div class="form-group">
@@ -92,7 +98,7 @@
                                         <input type="text"  class="form-control" id="keyword3" name="movie3" placeholder="Search" required>
                                         <div id="results3" class="list=group">
                                         </div>
-                                        <input id="movie3rating" name="movie3rating"  class="rating" data-size="xs">
+                                        <input id="movie3rating" name="movie3rating"  class="rating" data-size="xs" data-step="1" required>
                                     </div>
                                 </div>
                                <div class="form-group">
@@ -101,7 +107,7 @@
                                         <input type="text"  class="form-control" id="keyword4" name="movie4" placeholder="Search" required>
                                         <div id="results4" class="list=group">
                                         </div>
-                                        <input id="movie4rating" name="movie4rating"  class="rating" data-size="xs">
+                                        <input id="movie4rating" name="movie4rating"  class="rating" data-size="xs" data-step="1" required>
                                     </div>
                                 </div>
                                <div class="form-group">
@@ -110,7 +116,7 @@
                                         <input type="text"  class="form-control" id="keyword5" name="movie5" placeholder="Search" required>
                                         <div id="results5" class="list=group">
                                         </div>
-                                        <input id="movie5rating" name="movie5rating"  class="rating" data-size="xs">
+                                        <input id="movie5rating" name="movie5rating"  class="rating" data-size="xs" data-step="1" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -32,19 +32,31 @@ $register_attempt = $mysqli->query("SELECT * FROM `users` WHERE email='$email'")
 $movie_attempt = $mysqli->query("SELECT `id` FROM `movies` WHERE `title` LIKE '$m1' OR `title` 
     LIKE '$m2' OR `title` LIKE '$m3' OR `title` LIKE '$m4' OR `title` LIKE  '$m5' ");
 
-
+//build movie array for later
 while($row = $movie_attempt->fetch_row()) {
    $id_array[] = $row[0];
-    
+   if ($row[0]==0){
+        $review_fail=1;
+   }
 }
 
+
+// check if email is already in use
 if ($register_attempt->num_rows >= 1){
     $_SESSION['email_fail'] = true;
-    $failed=true;
     $_SESSION['registration_failed']=true;
     header("location:main.php");
-    exit();
+
 }
+
+// Check to be sure 5 different movies are returned
+if ($movie_attempt->num_rows < 5 or $review_fail==1) {
+    $_SESSION['movie_fail'] = true;
+    $_SESSION['registration_failed']=true;
+    header("location:main.php");
+
+}
+
 
 $_SESSION['registration_failed']=false;
 
@@ -54,19 +66,22 @@ $insert = "INSERT  INTO `users`  (`email`, `password`, `age`,`gender`,`occupatio
 
 if ($mysqli->query($insert)) {
 
-/*    $uidq = $mysqli->query("SELECT `userid` FROM `users` WHERE email='$email'");
-    $uid = $uidq->fetch_row()
+    $uidq = $mysqli->query("SELECT `userid` FROM `users` WHERE email='$email'");
+    $uid = $uidq->fetch_row();
+    $time = time();
 
-    $
-*/
 
+    $insert_reviews = $mysqli->query("INSERT INTO `user_reviews` (`userid`,`movieid`,`rating`,`timestamp`)
+            VALUES ($uid[0],$id_array[0],$r1,$time),($uid[0],$id_array[1],$r2,$time),
+            ($uid[0],$id_array[2],$r3,$time),($uid[0],$id_array[3],$r4,$time),
+            ($uid[0],$id_array[4],$r5,$time)");
 
 
     $_SESSION['registration_success']=true;
-    echo "$m1";
-    echo "$r1";
-/*    header("location:main.php");*/
-/*    exit();*/
+
+    header("location:main.php");
+
+    exit();
 } else {
     echo "<p>MySQL error no {$mysqli->errno} : {$mysqli->error}</p>";
     exit();
