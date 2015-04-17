@@ -71,12 +71,48 @@
                                <div class="form-group">
                                     <label for="movie1" class="col-md-3 control-label">Movie #1</label>
                                     <div class="col-md-9">
-                                        <input type="text"  class="form-control" id="keyword" name="movie1" placeholder="Search" required>
-                                        <div id="results" class="list=group">
+                                        <input type="text"  class="form-control" id="keyword1" name="movie1" placeholder="Search" required>
+                                        <div id="results1" class="list=group">
                                         </div>
+                                    <input id="movie1rating" name="movie1rating" class="rating" data-size="xs" data-step="1">
                                     </div>
                                 </div>
-
+                               <div class="form-group">
+                                    <label for="movie1" class="col-md-3 control-label">Movie #2</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  class="form-control" id="keyword2" name="movie2" placeholder="Search" required>
+                                        <div id="results2" class="list=group">
+                                        </div>
+                                        <input id="movie2rating" name="movie2rating"  class="rating" data-size="xs">
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label for="movie1" class="col-md-3 control-label">Movie #3</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  class="form-control" id="keyword3" name="movie3" placeholder="Search" required>
+                                        <div id="results3" class="list=group">
+                                        </div>
+                                        <input id="movie3rating" name="movie3rating"  class="rating" data-size="xs">
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label for="movie1" class="col-md-3 control-label">Movie #4</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  class="form-control" id="keyword4" name="movie4" placeholder="Search" required>
+                                        <div id="results4" class="list=group">
+                                        </div>
+                                        <input id="movie4rating" name="movie4rating"  class="rating" data-size="xs">
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label for="movie1" class="col-md-3 control-label">Movie #5</label>
+                                    <div class="col-md-9">
+                                        <input type="text"  class="form-control" id="keyword5" name="movie5" placeholder="Search" required>
+                                        <div id="results5" class="list=group">
+                                        </div>
+                                        <input id="movie5rating" name="movie5rating"  class="rating" data-size="xs">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">

@@ -11,6 +11,22 @@ $gender = $mysqli->real_escape_string($_POST['gender']);
 $occupation = $mysqli->real_escape_string($_POST['occupation']);
 $zip = $mysqli->real_escape_string($_POST['zip']);
 
+$m1 = $mysqli->real_escape_string($_POST['movie1']);
+$r1 = $mysqli->real_escape_string($_POST['movie1rating']);
+
+$m2 = $mysqli->real_escape_string($_POST['movie2']);
+$r2 = $mysqli->real_escape_string($_POST['movie2rating']);
+
+$m3 = $mysqli->real_escape_string($_POST['movie3']);
+$r3 = $mysqli->real_escape_string($_POST['movie4rating']);
+
+$m4 = $mysqli->real_escape_string($_POST['movie4']);
+$r4 = $mysqli->real_escape_string($_POST['movie4rating']);
+
+$m5 = $mysqli->real_escape_string($_POST['movie5']);
+$r5 = $mysqli->real_escape_string($_POST['movie5rating']);
+
+
 $register_attempt = $mysqli->query("SELECT * FROM `users` WHERE email='$email'");
 
 if ($register_attempt->num_rows >= 1){

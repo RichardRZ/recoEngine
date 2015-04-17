@@ -7,6 +7,7 @@
   <title>Jeremy Watson</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -83,6 +84,7 @@
     </div>
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/star-rating.js" type="text/javascript"></script>
             <script src="./auto-complete.js"></script>
 
             <?php 
