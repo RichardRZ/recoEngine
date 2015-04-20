@@ -18,13 +18,20 @@ Name: <input type="text" name="name"><br>
 Number to square: <input type="text" name="numSquare"><br>
 <input type="submit">
 </form>
+
+
+
 <?php 
+// this is how you call a shell command from php
 
 $command = escapeshellcmd('python pytest.py');
 $output = shell_exec($command);
 echo $output;
 
 ?>
+
+
+
 
 </body>
 </html>
