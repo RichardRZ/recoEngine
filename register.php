@@ -39,12 +39,23 @@
                                     </div>
                                 </div>
                                 
-                               <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="age" class="col-md-3 control-label">Age</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" name="age" placeholder="Age" required>
                                     </div>
-                                </div>
+                                </div> -->
+
+                               <div class="form-group">
+                                    <label for="age" class="col-md-3 control-label">Age</label>
+                                    <div class="col-md-9">
+                                      <!-- <label for="sel1">Select list:</label> -->
+                                      <select name="age" class="form-control" id="sel12">
+                                        <?php require('age_list.php') ?>
+                                      </select>
+                                    </div>
+                                </div>                                  
+
 
                                <div class="form-group">
                                     <label for="occupation" class="col-md-3 control-label">Gender</label>
