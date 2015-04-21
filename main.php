@@ -26,7 +26,9 @@ if (isset($_SESSION['email'])) {
 
 
 // Qiming, if you require('') the logged in site page here it will redirect there on successful login
+
 $fgmembersite->RedirectToURL("home.php");
+
 
     
 
