@@ -1,16 +1,13 @@
-<?PHP
-require_once("./include/membersite_config.php");
+<?php  //Start the Session
 
+require('connect.php');
+require_once("./include/membersite_config.php");
 if(!$fgmembersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("signin.php");
+    $fgmembersite->RedirectToURL("logout.php");
     exit;
 }
 ?>
-
-
-
-
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,7 +18,7 @@ if(!$fgmembersite->CheckLogin())
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Personal Profile Page</title>
+    <title>Home Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,8 +48,8 @@ if(!$fgmembersite->CheckLogin())
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="main.php">Home</a></li>
-              <li class="active"><a href="personalpage.php">Personal Profile</a></li>
+              <li class="active"><a href="main.php">Home</a></li>
+              <li><a href="personalpage.php">Personal Profile</a></li>
               <li><a href="recommendation.php">Recommendation Movies</a></li>
               <li><a href="logout.php">Logout</a></li>
             </ul>
@@ -63,17 +60,10 @@ if(!$fgmembersite->CheckLogin())
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Personal Information:</h2>
-		<h3>Email: <?= $personalsite->UserEmail() ?></h3>
-		<h3>age: <?= $personalsite->GetAgeFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>gender: <?= $personalsite->GetGenderFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>occupation: <?= $personalsite->GetOcpFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>zip_code: <?= $personalsite->GetZCFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>rated movies: <?= $movieratesite->GetRatedMoviesFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-
-        <br><br>
-          <a class="btn btn-lg btn-primary" href="change-userdata.php" role="button">Change Personal Information »</a>
-       
+        <h1>Welcome back <?= $fgmembersite->UserEmail(); ?> !</h1>
+        
+          <a class="btn btn-lg btn-primary" href="recommendation.php" role="button">Get your recommendation movies! »</a>
+        </p>
       </div>
 
     </div> <!-- /container -->
