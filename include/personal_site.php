@@ -121,7 +121,7 @@ class Personalsite
     
     function UserEmail()
     {
-        return isset($_SESSION['email_of_user'])?$_SESSION['email_of_user']:'';
+        return isset($_SESSION['email'])?$_SESSION['email']:'';
     }
 
 

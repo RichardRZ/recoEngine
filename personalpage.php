@@ -3,33 +3,88 @@ require_once("./include/membersite_config.php");
 
 if(!$fgmembersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("signin.php");
+    $fgmembersite->RedirectToURL("main.php");
     exit;
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<head>
-      <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-      <title>Personal Page</title>
-      <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css">
-</head>
-<body>
-<div id='fg_membersite_content'>
-<h2>Personal Page</h2>
-<p>
-Name: <?= $personalsite->UserFullName() ?><br>
-Email: <?= $personalsite->UserEmail($fgmembersite->GetIdFromEmail()) ?><br>
-age: <?= $personalsite->GetAgeFromId($fgmembersite->GetIdFromEmail()) ?><br>
-gender: <?= $personalsite->GetGenderFromId($fgmembersite->GetIdFromEmail()) ?><br>
-occupation: <?= $personalsite->GetOcpFromId($fgmembersite->GetIdFromEmail()) ?><br>
-zip_code: <?= $personalsite->GetZCFromId($fgmembersite->GetIdFromEmail()) ?><br>
-rated movies: <?= $movieratesite->GetRatedMoviesFromId($fgmembersite->GetIdFromEmail()) ?><br>
-</p>
-<p>
-<a href='change-userdata.php'>Change Personal Information</a><br>
-<a href='main.php'>Home</a>
-</p>
-</div>
-</body>
-</html>
+
+
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Personal Profile Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
+ -->
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="main.php">Home</a></li>
+              <li class="active"><a href="personalpage.php">Personal Profile</a></li>
+              <li><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="logout.php">Logout</a></li>
+            </ul>
+           
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h2>Personal Information:</h2>
+		<h3>Email: <?= $personalsite->UserEmail() ?></h3>
+		<h3>age: <?= $personalsite->GetAgeFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+		<h3>gender: <?= $personalsite->GetGenderFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+		<h3>occupation: <?= $personalsite->GetOcpFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+		<h3>zip_code: <?= $personalsite->GetZCFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+		<h3>rated movies: <?= $movieratesite->GetRatedMoviesFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+
+        <br><br>
+          <a class="btn btn-lg btn-primary" href="change-userdata.php" role="button">Change Personal Information »</a>
+       
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+  
+
+</body></html>

@@ -2,7 +2,7 @@
 session_start(); 
 
 require('connect.php');
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 // check for form submission
 if (isset($_POST['email']) and isset($_POST['password'])){
     $_SESSION['registration_failed']=false;
@@ -26,31 +26,16 @@ if (isset($_SESSION['email'])) {
 
 
 // Qiming, if you require('') the logged in site page here it will redirect there on successful login
-   
+
+$usersite->RedirectToURL("home.php");
+
+
+    
 
 }else{
 // When the user visits the page first time, simple login form will be displayed.
 
-    require('signin.php');
+    require('logout.php');
 
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<head>
-      <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-      <title>Home page</title>
-      <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css">
-</head>
-<body>
-<div id='fg_membersite_content'>
-<h2>Home Page</h2>
-Welcome back <?= $fgmembersite->UserEmail(); ?>!
-
-<p><a href='personalpage.php'>Personal Page</a></p>
-<p><a href='recommendation.php'>Get your recommendation movies!</a></p>
-<br><br><br>
-<p><a href='logout.php'>Logout</a></p>
-</div>
-</body>
-</html>

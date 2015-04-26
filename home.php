@@ -1,25 +1,13 @@
-<?PHP
+<?php  //Start the Session
+
+require('connect.php');
 require_once("./include/membersite_config.php");
 if(!$fgmembersite->CheckLogin())
 {
-
     $fgmembersite->RedirectToURL("logout.php");
     exit;
 }
-
-if(isset($_POST['submitted']))
-{
-   if(true)
-   {
-        $fgmembersite->RedirectToURL("thankyou-rate-movie.php");
-   }
-}
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,7 +18,7 @@ if(isset($_POST['submitted']))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Movie Description</title>
+    <title>Home Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -60,9 +48,9 @@ if(isset($_POST['submitted']))
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="main.php">Home</a></li>
+              <li class="active"><a href="main.php">Home</a></li>
               <li><a href="personalpage.php">Personal Profile</a></li>
-              <li ><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="recommendation.php">Recommendation Movies</a></li>
               <li><a href="logout.php">Logout</a></li>
             </ul>
            
@@ -72,22 +60,13 @@ if(isset($_POST['submitted']))
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Movie Profile:</h2>
-		<h3>Title: <?= $moviesite->GetTitleFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-		<h3>Release Date: <?= $moviesite->GetReleaseFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-		<h3>Categories:  <?= $moviesite->GetCatFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-		<h3>Average Review Rate:  <?= $movieratesite->GetAvgRateFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-      
+        <h1>Welcome back <?= $fgmembersite->UserEmail(); ?> !</h1>
+        
+          <a class="btn btn-lg btn-primary" href="recommendation.php" role="button">Get your recommendation movies! »</a>
+        </p>
+      </div>
 
-		<h3>Rate this movie: 
-		<input type="submit" name ="one" value ="1 star" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),1,$fgmembersite->GetIdFromEmail()) ?>"/> 
-		<input type="submit" name ="two" value ="2 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),2,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="three" value ="3 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),3,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="four" value ="4 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),4,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="five" value ="5 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),5,$fgmembersite->GetIdFromEmail()) ?>"/></h3>
-	 </div>
     </div> <!-- /container -->
-    
 
 
     <!-- Bootstrap core JavaScript
