@@ -26,9 +26,7 @@ if (isset($_SESSION['email'])) {
 
 
 // Qiming, if you require('') the logged in site page here it will redirect there on successful login
-
-
-    
+   
 
 }else{
 // When the user visits the page first time, simple login form will be displayed.
@@ -52,7 +50,7 @@ Welcome back <?= $fgmembersite->UserEmail(); ?>!
 <p><a href='personalpage.php'>Personal Page</a></p>
 <p><a href='recommendation.php'>Get your recommendation movies!</a></p>
 <br><br><br>
-<p><a href='signin.php'>Logout</a></p>
+<p><a href='logout.php'>Logout</a></p>
 </div>
 </body>
 </html>
