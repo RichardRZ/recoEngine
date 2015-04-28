@@ -1,20 +1,32 @@
 import sys
 import csv
+import us
+from pyzipcode import ZipCodeDatabase
 
-
+zcdb = ZipCodeDatabase()
 
 user_dict = {}
 
+userscsv = csv.reader(open('users.csv'),delimiter=',')
 
+for users in userscsv:
+    try:
+        zipc = zcdb[users[4]]
+    except IndexError:
+        continue
 
-userscsv = csv.reader(open('users.dat'),delimiter='@')
+    user_dict[users[0]]=zipc.state.encode('utf8')
 
-for movie in moviecsv:
-    genres_list = [0] * 18
-    genres = movie[2].split('|')
-    for g in genres:
-        genres_list[int(genre_dict[g])] = 1
-    genre_str = ''
-    for x in genres_list:
-        genre_str=genre_str+str(x)+'|'
-    print movie[0]+'|'+movie[1]+'|'+genre_str
+# user, movie, rating
+
+ratings = csv.reader(open('ratings.dat'))
+
+state_dict = {}
+
+for rating in ratings:
+    if rating[0] in user_dict:
+        fipss = us.states.lookup(user_dict[rating[0]]).fips
+        movieid = rating[1]
+        rating = rating[2]
+        #print rating[0]+','+rating[1]+','+rating[2]+','+fipss
+
