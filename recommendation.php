@@ -1,9 +1,9 @@
 <?PHP
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 
-if(!$fgmembersite->CheckLogin())
+if(!$usersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("sigin.php");
+    $usersite->RedirectToURL("logout.php");
     exit;
 }
 ?>
@@ -47,7 +47,7 @@ if(!$fgmembersite->CheckLogin())
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -64,9 +64,18 @@ if(!$fgmembersite->CheckLogin())
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h2>Recommendation Movies:</h2>
-		<h3><?= $fgmembersite->UserEmail()?>, Here is a movie list for you:</h3>
+		<h3><?= $usersite->UserEmail()?>, Here is a movie list for you:</h3>
 		<p>
-			<h3><?= $recommendationsite->GetMoviesFromUser($fgmembersite->GetIdFromEmail()) ?></h3>
+			<h3><?php 
+      $command = escapeshellcmd('python recommendation.py -userId '.$usersite->GetIdFromEmail());
+      $output = shell_exec($command);
+      echo 'output:';
+      echo $output;
+      $ids = explode(",",$output);
+      foreach ($ids as $value){
+        $recommendationsite->GetMovieLinkeByMoiveId($value);
+      }
+      ?></h3>
 		</p>
 
         

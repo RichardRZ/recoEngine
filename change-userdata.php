@@ -1,30 +1,69 @@
 <?PHP
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 
-if($fgmembersite->CheckLogin() && isset($_POST['submitted']))
+if($usersite->CheckLogin() && isset($_POST['submitted']))
 {
-   if($personalsite->ChangeUserData($fgmembersite->GetIdFromEmail()))
+   if($personalsite->ChangeUserData($usersite->GetIdFromEmail()))
    {
-        $fgmembersite->RedirectToURL("personalpage.php");
+        $usersite->RedirectToURL("personalpage.php");
    }
 }
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<head>
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-    <title>Contact us</title>
-    <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css" />
-    <script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
-    <link rel="STYLESHEET" type="text/css" href="style/pwdwidget.css" />
-    <script src="scripts/pwdwidget.js" type="text/javascript"></script>      
-</head>
-<body>
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- Form Code Start -->
-<div id='change-userdatsite'>
-<form id='register' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
+    <title>Personal Profile Setting</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
+ -->
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="main.php">Home</a></li>
+              <li class="active"><a href="personalpage.php">Personal Profile</a></li>
+              <li><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="logout.php">Logout</a></li>
+            </ul>
+           
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div id='change-userdatsite'>
+<form id='register' action='<?php echo $usersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
 <fieldset >
 <legend>Personal Information Register</legend>
 
@@ -32,49 +71,48 @@ if($fgmembersite->CheckLogin() && isset($_POST['submitted']))
 
 
 
-<!--<div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>-->
-<div class='container'>
-    <label for='name' >Name*: </label><br/>
-    <input type='text' name='name' id='name' value='<?php echo $fgmembersite->SafeDisplay('name') ?>' maxlength="50" /><br/>
-    <span id='register_name_errorloc' class='error'></span>
-</div>
+
 
 <div class='container'>
     <label for='age' >Age*:</label><br/>
-    <input type='text' name='age' id='age' value='<?php echo $fgmembersite->SafeDisplay('age') ?>' maxlength="50" /><br/>
+    <input type='text' name='age' id='age' value='<?php echo $usersite->SafeDisplay('age') ?>' maxlength="50" /><br/>
     <span id='register_age_errorloc' class='error'></span>
 </div>
 <div class='container'>
     <label for='gender' >Gender(Type F/M)*: </label><br/>
-    <input type='text' name='gender' id='gender' value='<?php echo $fgmembersite->SafeDisplay('gender') ?>' maxlength="50" /><br/>
+    <input type='text' name='gender' id='gender' value='<?php echo $usersite->SafeDisplay('gender') ?>' maxlength="50" /><br/>
 
     <span id='register_gender_errorloc' class='error'></span>
 </div>
 <div class='container'>
     <label for='occupation' >occupation*: </label><br/>
-    <input type='text' name='occupation' id='occupation' value='<?php echo $fgmembersite->SafeDisplay('occupation') ?>' maxlength="50" /><br/>
+    <input type='text' name='occupation' id='occupation' value='<?php echo $usersite->SafeDisplay('occupation') ?>' maxlength="50" /><br/>
     <span id='register_occupation_errorloc' class='error'></span>
 </div>
 <div class='container'>
     <label for='zipcode' >zip_code*: </label><br/>
-    <input type='text' name='zipcode' id='name' value='<?php echo $fgmembersite->SafeDisplay('zipcode') ?>' maxlength="50" /><br/>
+    <input type='text' name='zipcode' id='name' value='<?php echo $usersite->SafeDisplay('zipcode') ?>' maxlength="50" /><br/>
     <span id='register_zipcode_errorloc' class='error'></span>
 </div>
-
+<br>
 <div class='container'>
-    <input type='submit' name='Submit' value='Submit' />
+    <input type='submit' class="btn btn-lg btn-primary" name='Submit' value='Submit' />
 </div>
 
 </fieldset>
 </form>
-<!-- client-side Form Validations:
-Uses the excellent form validation script from JavaScript-coder.com-->
+       
+      </div>
+
+    </div> <!-- /container -->
 
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 
-<!--
-Form Code End (see html-form-guide.com for more info.)
--->
+  
 
-</body>
-</html>
+</body></html>

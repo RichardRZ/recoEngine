@@ -18,30 +18,23 @@ http://www.html-form-guide.com/php-form/php-registration-form.html
 http://www.html-form-guide.com/php-form/php-login-form.html
 
 */
-require_once("class.phpmailer.php");
-require_once("formvalidator.php");
+
 
 class Recommendationsite
 {
-    var $admin_email;
-    var $from_address;
+    
     
     var $username;
     var $pwd;
     var $database;
     var $tablename;
     var $connection;
-    var $rand_key;
+  
     
     var $error_message;
     
     //-----Initialization -------
-    function FGMembersite()
-    {
-        $this->sitename = 'YourWebsiteName.com';
-        $this->rand_key = '0iQx5oBk66oVZep';
-    }
-    
+ 
     function InitDB($host,$uname,$pwd,$database,$tablename)
     {
         $this->db_host  = $host;
@@ -52,31 +45,9 @@ class Recommendationsite
         
     }
 
-    function InitUserDB($host,$uname,$pwd,$database,$tablename)
-    {
-        $this->db_host  = $host;
-        $this->username = $uname;
-        $this->pwd  = $pwd;
-        $this->database  = $database;
-        $this->tablename = $tablename;
-        
-    }
+ 
 
-    function SetAdminEmail($email)
-    {
-        $this->admin_email = $email;
-    }
-    
-    function SetWebsiteName($sitename)
-    {
-        $this->sitename = $sitename;
-    }
-    
-    function SetRandomKey($key)
-    {
-        $this->rand_key = $key;
-    }
-    
+ 
     //-------Main Operations ----------------------
     
     function CheckLogin()
@@ -92,39 +63,9 @@ class Recommendationsite
          return true;
     }
     
-    function UserFullName()
-    {
-        return isset($_SESSION['name_of_user'])?$_SESSION['name_of_user']:'';
-    }
+   
 
-    
-    function UserEmail()
-    {
-        return isset($_SESSION['email_of_user'])?$_SESSION['email_of_user']:'';
-    }
-
-    function GetIdFromEmail()
-    {
-    	$email = $this->UserEmail();
-        if(!$this->DBLogin())
-        {
-            $this->HandleError("Database login failed!");
-            return false;
-        }   
-        $email = $this->SanitizeForSQL($email);
-        
-        $result = mysql_query("Select id_user from $this->tablename where email='$email'",$this->connection);  
-
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
-            $this->HandleError("There is no user with email: $email");
-            return false;
-        }
-        $row = mysql_fetch_assoc($result);
-
-        
-        return $row['id_user'];
-    }
+   
     
     
     //-------Public Helper functions -------------
@@ -141,18 +82,7 @@ class Recommendationsite
         $this->HandleError($err."\r\n mysqlerror:".mysql_error());
     }
     
-    function GetFromAddress()
-    {
-        if(!empty($this->from_address))
-        {
-            return $this->from_address;
-        }
-
-        $host = $_SERVER['SERVER_NAME'];
-
-        $from ="nobody@$host";
-        return $from;
-    } 
+    
     
     function GetLoginSessionVar()
     {
@@ -161,59 +91,12 @@ class Recommendationsite
         return $retvar;
     }
     
-    function CheckLoginInDB($username,$password)
-    {
-        if(!$this->DBLogin())
-        {
-            $this->HandleError("Database login failed!");
-            return false;
-        }          
-        $username = $this->SanitizeForSQL($username);
-        $pwdmd5 = md5($password);
-        $qry = "Select id_user, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
-        
-        $result = mysql_query($qry,$this->connection);
-        
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
-            $this->HandleError("Error logging in. The username or password does not match");
-            return false;
-        }
-        
-        $row = mysql_fetch_assoc($result);
-        
-        
-        $_SESSION['name_of_user']  = $row['name'];
-        $_SESSION['email_of_user'] = $row['email'];
-        
-        return true;
-    }
     
     
+
+
     
-    function GetUserFromEmail($email,&$user_rec)
-    {
-        if(!$this->DBLogin())
-        {
-            $this->HandleError("Database login failed!");
-            return false;
-        }   
-        $email = $this->SanitizeForSQL($email);
-        
-        $result = mysql_query("Select * from $this->tablename where email='$email'",$this->connection);  
-
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
-            $this->HandleError("There is no user with email: $email");
-            return false;
-        }
-        $user_rec = mysql_fetch_assoc($result);
-
-        
-        return true;
-    }
-
-    function GetMoviesFromUser($id)
+    function GetMovieLinkeByMoiveId($id)
     {
         if(!$this->DBLogin())
         {
@@ -222,21 +105,18 @@ class Recommendationsite
         }   
         $id = $this->SanitizeForSQL($id);
         
-        $result = mysql_query("Select * from $this->tablename where user_id='$id'",$this->connection);  
+        $result = mysql_query("Select title from $this->tablename where id='$id'",$this->connection);  
 
         if(!$result || mysql_num_rows($result) <= 0)
         {
             $this->HandleError("There is no user with email: $email");
             return false;
         }
+        $row = mysql_fetch_assoc($result);
+        $valueName = $row['title'];
         
-        while($row = mysql_fetch_assoc($result)){
-            $valueId = $row['movie_id'];
-            $valueName = $row['movie_name'];
-            echo '<a href="movie.php?movie_id='.urlencode($valueId).'">'.$valueName.'</a>';
-            echo '<br/>';
-        }
-        
+        echo '<a href="movie.php?movie_id='.urlencode($id).'">'.$valueName.'</a>';
+        echo '<br>';
         return;
     }
     

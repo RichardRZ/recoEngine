@@ -1,24 +1,44 @@
 <?PHP
-require_once("./include/membersite_config.php");
-if(!$fgmembersite->CheckLogin())
+require_once("./include/config.php");
+if(!$usersite->CheckLogin())
 {
 
-    $fgmembersite->RedirectToURL("logout.php");
+    $usersite->RedirectToURL("logout.php");
     exit;
 }
 
-if(isset($_POST['submitted']))
+$movieratesite->setMovieId();
+
+
+if(isset($_POST['one']))
 {
-   if(true)
-   {
-        $fgmembersite->RedirectToURL("thankyou-rate-movie.php");
-   }
+	echo $movieratesite->getMovieId();
+	echo '****';
+	$movieratesite->rateMovie($movieratesite->getMovieId(),1,$usersite->GetIdFromEmail());
+}
+else if(isset($_POST['two']))
+{
+	$movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),2,$usersite->GetIdFromEmail());
+	$usersite->RedirectToURL("thankyou-rate-movie.php");
+}
+else if(isset($_POST['three']))
+{
+	$movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),3,$usersite->GetIdFromEmail());
+	$usersite->RedirectToURL("thankyou-rate-movie.php");
+}
+else if(isset($_POST['four']))
+{
+	$movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),4,$usersite->GetIdFromEmail());
+	$usersite->RedirectToURL("thankyou-rate-movie.php");
+}
+else if(isset($_POST['five'])){
+	$movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),5,$usersite->GetIdFromEmail());
+	$usersite->RedirectToURL("thankyou-rate-movie.php");
+}
+else{
+
 }
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
@@ -30,7 +50,7 @@ if(isset($_POST['submitted']))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Movie Description</title>
+    <title>Personal Profile Setting</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -56,13 +76,13 @@ if(isset($_POST['submitted']))
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="main.php">Home</a></li>
               <li><a href="personalpage.php">Personal Profile</a></li>
-              <li ><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="recommendation.php">Recommendation Movies</a></li>
               <li><a href="logout.php">Logout</a></li>
             </ul>
            
@@ -72,22 +92,40 @@ if(isset($_POST['submitted']))
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Movie Profile:</h2>
-		<h3>Title: <?= $moviesite->GetTitleFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
+        <div id='change-userdatsite'>
+<form id='movie' action='<?php echo $usersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
+<fieldset >
+<legend>Movie Profile:</legend>
+
+<input type='hidden' name='submitted' id='submitted' value='1'/>
+
+
+
+
+
+<div class='container'>
+    <h3>Title: <?= $moviesite->GetTitleFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
 		<h3>Release Date: <?= $moviesite->GetReleaseFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
 		<h3>Categories:  <?= $moviesite->GetCatFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
 		<h3>Average Review Rate:  <?= $movieratesite->GetAvgRateFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-      
+</div>
 
-		<h3>Rate this movie: 
-		<input type="submit" name ="one" value ="1 star" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),1,$fgmembersite->GetIdFromEmail()) ?>"/> 
-		<input type="submit" name ="two" value ="2 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),2,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="three" value ="3 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),3,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="four" value ="4 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),4,$fgmembersite->GetIdFromEmail()) ?>"/>
-		<input type="submit" name ="five" value ="5 stars" onclick="<?= $movieratesite->rateMovie(htmlspecialchars($_GET["movie_id"]),5,$fgmembersite->GetIdFromEmail()) ?>"/></h3>
-	 </div>
+<br>
+<div class='container'>
+	<h3>Rate this movie:
+    <input type="submit" name ="one" value ="1 star" /> 
+		<input type="submit" name ="two" value ="2 stars" />
+		<input type="submit" name ="three" value ="3 stars" />
+		<input type="submit" name ="four" value ="4 stars" />
+		<input type="submit" name ="five" value ="5 stars" /></h3>
+</div>
+
+</fieldset>
+</form>
+       
+      </div>
+
     </div> <!-- /container -->
-    
 
 
     <!-- Bootstrap core JavaScript

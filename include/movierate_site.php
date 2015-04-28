@@ -18,12 +18,10 @@ http://www.html-form-guide.com/php-form/php-registration-form.html
 http://www.html-form-guide.com/php-form/php-login-form.html
 
 */
-require_once("class.phpmailer.php");
-require_once("formvalidator.php");
+
 
 class Movieratesite
 {
-    var $admin_email;
     var $from_address;
     
     var $username;
@@ -32,14 +30,18 @@ class Movieratesite
     var $tablename;
     var $connection;
     var $rand_key;
-    
+    var $movie_id;
     var $error_message;
     
     //-----Initialization -------
-    function FGMembersite()
-    {
-        $this->sitename = 'YourWebsiteName.com';
-        $this->rand_key = '0iQx5oBk66oVZep';
+
+    function setMovieId(){
+        $this->movie_id = $_GET["movie_id"];
+    }
+
+    function getMovieId(){
+        echo 'getmoviid';
+        return $this->movie_id;
     }
     
     function InitDB($host,$uname,$pwd,$database,$tablename)
@@ -167,7 +169,9 @@ class Movieratesite
             $this->HandleError("Database login failed!");
             return false;
         }   
+        echo $id;
         $id = $this->SanitizeForSQL($id);
+
         $result = mysql_query("Select * from $this->tablename where movieid='$id' and userid='$userid'",$this->connection);  
         if(!$result || mysql_num_rows($result) <= 0)
         {

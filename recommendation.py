@@ -147,13 +147,14 @@ def loadMovieLens(path,genre=None):
 			prefs[user][movies[movieid]]=float(rating)
 	return prefs
 	
+	
 def loadMoviesFromServer(genre=None):
 	conn = projSql.get_sql_connection()
 	data = conn.cursor()
 	if genre == None:
-		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid"
+		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid"
 	else:
-		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid WHERE " + genre + " = 1"
+		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid WHERE " + genre + " = 1"
 	data.execute(sql)
 	prefs = {}
 	for row in data:
@@ -200,7 +201,7 @@ def main():
 	print ",".join(recommend)
 
 	end_time = time.clock()
-	print("Time taken: "+str(end_time - start_time)+" seconds.\n")
+	#print("Time taken: "+str(end_time - start_time)+" seconds.\n")
 
 if __name__ == '__main__':
 	main()		

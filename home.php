@@ -1,10 +1,10 @@
 <?php  //Start the Session
 
 require('connect.php');
-require_once("./include/membersite_config.php");
-if(!$fgmembersite->CheckLogin())
+require_once("./include/config.php");
+if(!$usersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("logout.php");
+    $usersite->RedirectToURL("logout.php");
     exit;
 }
 ?>
@@ -44,7 +44,7 @@ if(!$fgmembersite->CheckLogin())
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -60,7 +60,7 @@ if(!$fgmembersite->CheckLogin())
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Welcome back <?= $fgmembersite->UserEmail(); ?> !</h1>
+        <h1>Welcome back <?= $usersite->UserEmail(); ?> !</h1>
         
           <a class="btn btn-lg btn-primary" href="recommendation.php" role="button">Get your recommendation movies! »</a>
         </p>
