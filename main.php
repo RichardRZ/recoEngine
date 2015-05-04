@@ -2,7 +2,7 @@
 session_start(); 
 
 require('connect.php');
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 // check for form submission
 if (isset($_POST['email']) and isset($_POST['password'])){
     $_SESSION['registration_failed']=false;
@@ -27,7 +27,7 @@ if (isset($_SESSION['email'])) {
 
 // Qiming, if you require('') the logged in site page here it will redirect there on successful login
 
-$fgmembersite->RedirectToURL("home.php");
+$usersite->RedirectToURL("home.php");
 
 
     

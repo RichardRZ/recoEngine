@@ -1,9 +1,9 @@
 <?PHP
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 
-if(!$fgmembersite->CheckLogin())
+if(!$usersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("sigin.php");
+    $usersite->RedirectToURL("logout.php");
     exit;
 }
 ?>
@@ -47,7 +47,7 @@ if(!$fgmembersite->CheckLogin())
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -63,11 +63,34 @@ if(!$fgmembersite->CheckLogin())
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Recommendation Movies:</h2>
-		<h3><?= $fgmembersite->UserEmail()?>, Here is a movie list for you:</h3>
-		<p>
-			<h3><?= $recommendationsite->GetMoviesFromUser($fgmembersite->GetIdFromEmail()) ?></h3>
-		</p>
+        <h2>Choose your recommendation options:</h2>
+        <div class="dropdown">
+        <h3>Recommends by </h3>
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Genre
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=all">All</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=action">Action</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Adventure">Adventure</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Animation">Animation</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Childrens">Childrens</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Comedy">Comedy</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Crime">Crime</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Documentary">Documentary</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Drama">Drama</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Fantasy">Fantasy</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Filmnoir">Filmnoir</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Horror">Horror</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Musical">Musical</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Mystery">Mystery</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Romance">Romance</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Scifi">Scifi</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Thriller">Thriller</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=War">War</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Western">Western</a></li>
+    </ul>
+  </div>
+		
 
         
       </div>

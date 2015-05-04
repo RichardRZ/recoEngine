@@ -20,21 +20,19 @@ http://www.html-form-guide.com/php-form/php-login-form.html
 */
 
 
-class Recommendationsite
+class Usersite
 {
-    
     
     var $username;
     var $pwd;
     var $database;
     var $tablename;
     var $connection;
-  
     
     var $error_message;
     
     //-----Initialization -------
- 
+    
     function InitDB($host,$uname,$pwd,$database,$tablename)
     {
         $this->db_host  = $host;
@@ -45,10 +43,8 @@ class Recommendationsite
         
     }
 
- 
-
- 
     //-------Main Operations ----------------------
+
     
     function CheckLogin()
     {
@@ -56,19 +52,27 @@ class Recommendationsite
 
          $sessionvar = $this->GetLoginSessionVar();
          
-         if(empty($_SESSION[$sessionvar]))
+         if(empty($_SESSION['email']))
          {
             return false;
          }
          return true;
     }
     
-   
 
-   
     
+    function UserEmail()
+    {
+        return isset($_SESSION['email'])?$_SESSION['email']:'';
+    }
     
     //-------Public Helper functions -------------
+    
+    function RedirectToURL($url)
+    {
+        header("Location: $url");
+        exit;
+    }
     
     //-------Private Helper functions-----------
     
@@ -81,9 +85,7 @@ class Recommendationsite
     {
         $this->HandleError($err."\r\n mysqlerror:".mysql_error());
     }
-    
-    
-    
+      
     function GetLoginSessionVar()
     {
         $retvar = md5($this->rand_key);
@@ -91,21 +93,17 @@ class Recommendationsite
         return $retvar;
     }
     
-    
-    
-
-
-    
-    function GetMovieLinkeByMoiveId($id)
+    function GetIdFromEmail()
     {
+        $email = $this->UserEmail();
         if(!$this->DBLogin())
         {
             $this->HandleError("Database login failed!");
             return false;
         }   
-        $id = $this->SanitizeForSQL($id);
+        $email = $this->SanitizeForSQL($email);
         
-        $result = mysql_query("Select title from $this->tablename where id='$id'",$this->connection);  
+        $result = mysql_query("Select userid from $this->tablename where email='$email'",$this->connection);  
 
         if(!$result || mysql_num_rows($result) <= 0)
         {
@@ -113,11 +111,10 @@ class Recommendationsite
             return false;
         }
         $row = mysql_fetch_assoc($result);
-        $valueName = $row['title'];
-        echo '<a href="movie.php?movie_id='.urlencode($id).'">'.$valueName.'</a>';
-        echo '<br>';
-        return;
+        
+        return $row['userid'];
     }
+       
     
     function DBLogin()
     {
@@ -141,10 +138,6 @@ class Recommendationsite
         }
         return true;
     }    
-    
-    
-    
-    
     
     function SanitizeForSQL($str)
     {
@@ -183,6 +176,22 @@ class Recommendationsite
 
         return $str;
     }    
+
+    function SafeDisplay($value_name)
+    {
+        if(empty($_POST[$value_name]))
+        {
+            return'';
+        }
+        return htmlentities($_POST[$value_name]);
+    }
+
+function GetSelfScript()
+    {
+        return htmlentities($_SERVER['PHP_SELF']);
+    }   
+
+    
     function StripSlashes($str)
     {
         if(get_magic_quotes_gpc())

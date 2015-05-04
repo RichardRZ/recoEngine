@@ -1,9 +1,9 @@
 <?PHP
-require_once("./include/membersite_config.php");
+require_once("./include/config.php");
 
-if(!$fgmembersite->CheckLogin())
+if(!$usersite->CheckLogin())
 {
-    $fgmembersite->RedirectToURL("main.php");
+    $usersite->RedirectToURL("logout.php");
     exit;
 }
 ?>
@@ -47,7 +47,7 @@ if(!$fgmembersite->CheckLogin())
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://getbootstrap.com/examples/navbar/#">RecMovie</a>
+            <a class="navbar-brand" href="main.php">RecMovie</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -65,11 +65,11 @@ if(!$fgmembersite->CheckLogin())
       <div class="jumbotron">
         <h2>Personal Information:</h2>
 		<h3>Email: <?= $personalsite->UserEmail() ?></h3>
-		<h3>age: <?= $personalsite->GetAgeFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>gender: <?= $personalsite->GetGenderFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>occupation: <?= $personalsite->GetOcpFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>zip_code: <?= $personalsite->GetZCFromId($fgmembersite->GetIdFromEmail()) ?></h3>
-		<h3>rated movies: <?= $movieratesite->GetRatedMoviesFromId($fgmembersite->GetIdFromEmail()) ?></h3>
+		<h3>age: <?= $personalsite->GetAgeFromId($usersite->GetIdFromEmail()) ?></h3>
+		<h3>gender: <?= $personalsite->GetGenderFromId($usersite->GetIdFromEmail()) ?></h3>
+		<h3>occupation: <?= $personalsite->GetOcpFromId($usersite->GetIdFromEmail()) ?></h3>
+		<h3>zip_code: <?= $personalsite->GetZCFromId($usersite->GetIdFromEmail()) ?></h3>
+		<h3>rated movies: <?= $movieratesite->GetRatedMoviesFromId($usersite->GetIdFromEmail()) ?></h3>
 
         <br><br>
           <a class="btn btn-lg btn-primary" href="change-userdata.php" role="button">Change Personal Information »</a>

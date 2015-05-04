@@ -107,6 +107,32 @@ def getRecommendations(prefs,person,n=50,similarity=sim_pearson):
 	m = n if n>=l else l
 	recommend = [str(item) for (score,item) in rankings[0:m]]
 	return recommend
+	
+
+def getRecommendedItems(prefs,itemMatch,user):
+	userRatings=prefs[user]
+	scores={}
+	totalSim={}
+	# Loop over items rated by this user
+	for (item,rating) in userRatings.items():
+		# Loop over items similar to this one
+		for (similarity,item2) in itemMatch[item]:
+			# Ignore if this user has already rated this item
+			if item2 in userRatings: continue
+			# Weighted sum of rating times similarity
+			scores.setdefault(item2,0)
+			scores[item2]+=similarity*rating
+			# Sum of all the similarities
+			totalSim.setdefault(item2,0)
+			totalSim[item2]+=similarity
+		
+		# Divide each total score by total weighting to get an average 
+		rankings=[(score/totalSim[item],item) for item,score in scores.items()]
+		
+		# Return the rankings from highest to lowest rankings.sort( )
+		rankings.reverse( )
+		recommend = [str(item) for (score,item) in rankings]
+		return recommend
 				
 
 def calculateSimilarItems(prefs,n=10):
@@ -147,13 +173,18 @@ def loadMovieLens(path,genre=None):
 			prefs[user][movies[movieid]]=float(rating)
 	return prefs
 	
+	
 def loadMoviesFromServer(genre=None):
 	conn = projSql.get_sql_connection()
 	data = conn.cursor()
 	if genre == None:
-		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid"
+		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid"
 	else:
-		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid WHERE " + genre + " = 1"
+		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid WHERE " + genre + " = 1"
+	# if genre == None:
+	# 	sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid"
+	# else:
+	# 	sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid WHERE " + genre + " = 1"
 	data.execute(sql)
 	prefs = {}
 	for row in data:
@@ -198,6 +229,11 @@ def main():
 	user_critics = loadMoviesFromServer(opts.genre)
 	recommend = getRecommendations(user_critics, int(float(opts.userId)))
 	print ",".join(recommend)
+	
+	#item-based
+	# moviesim = calculateSimilarItems(user_critics)
+	# recommend = getRecommendedItems(user_critics,moviesim,opts.userId)
+	# print ",".join(recommend)
 
 	end_time = time.clock()
 	print("Time taken: "+str(end_time - start_time)+" seconds.\n")

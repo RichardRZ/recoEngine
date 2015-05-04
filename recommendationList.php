@@ -1,15 +1,16 @@
 <?PHP
 require_once("./include/config.php");
 
-if($usersite->CheckLogin() && isset($_POST['submitted']))
+if(!$usersite->CheckLogin())
 {
-   if($personalsite->ChangeUserData($usersite->GetIdFromEmail()))
-   {
-        $usersite->RedirectToURL("personalpage.php");
-   }
+    $usersite->RedirectToURL("logout.php");
+    exit;
 }
-
 ?>
+
+
+
+
 <!DOCTYPE html>
 <!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +21,7 @@ if($usersite->CheckLogin() && isset($_POST['submitted']))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Personal Profile Setting</title>
+    <title>Recommendation Movies Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,8 +52,8 @@ if($usersite->CheckLogin() && isset($_POST['submitted']))
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="main.php">Home</a></li>
-              <li class="active"><a href="personalpage.php">Personal Profile</a></li>
-              <li><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="personalpage.php">Personal Profile</a></li>
+              <li class="active"><a href="recommendation.php">Recommendation Movies</a></li>
               <li><a href="logout.php">Logout</a></li>
             </ul>
            
@@ -62,48 +63,28 @@ if($usersite->CheckLogin() && isset($_POST['submitted']))
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <div id='change-userdatsite'>
-<form id='register' action='<?php echo $usersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
-<fieldset >
-<legend>Personal Information Register</legend>
+        <h2>Recommendation Movies:</h2>
+		<h3><?= $usersite->UserEmail()?>, Here is a movie list for you:</h3>
+		<p>
+			<h3><?php 
+      if ($_GET['value']=='all'){
+        $command = escapeshellcmd('python recommendation_item_base.py -userId '.$usersite->GetIdFromEmail());
+      }
+      else{
+        $command = escapeshellcmd('python recommendation_item_base.py -userId '.$usersite->GetIdFromEmail().' -genre '.$_GET['value']);
+      }
+      
+      //$command = escapeshellcmd('python recommendation_item_base.py -userId 100 -genre Scifi');
+      $output = shell_exec($command);
+      $output = str_replace(array("\n", "\r"), '', $output);
+      $ids = explode(",",$output);
+      foreach ($ids as $value){
+        $recommendationsite->GetMovieLinkeByMoiveId($value);
+      }
+      ?></h3>
+		</p>
 
-<input type='hidden' name='submitted' id='submitted' value='1'/>
-
-
-
-
-
-<div class='container'>
-    <label for='age' >Age*:</label><br/>
-    <input type='text' name='age' id='age' value='<?php echo $usersite->SafeDisplay('age') ?>' maxlength="50" /><br/>
-    <span id='register_age_errorloc' class='error'></span>
-</div>
-<div class='container'>
-    <label for='gender' >Gender(Type F/M)*: </label><br/>
-    <form action="">
-      <input type="radio" name="gender" value="M">Male<br>
-      <input type="radio" name="gender" value="F">Female
-    </form>
-    <span id='register_gender_errorloc' class='error'></span>
-</div>
-<div class='container'>
-    <label for='occupation' >occupation*: </label><br/>
-    <input type='text' name='occupation' id='occupation' value='<?php echo $usersite->SafeDisplay('occupation') ?>' maxlength="50" /><br/>
-    <span id='register_occupation_errorloc' class='error'></span>
-</div>
-<div class='container'>
-    <label for='zipcode' >zip_code*: </label><br/>
-    <input type='text' name='zipcode' id='name' value='<?php echo $usersite->SafeDisplay('zipcode') ?>' maxlength="50" /><br/>
-    <span id='register_zipcode_errorloc' class='error'></span>
-</div>
-<br>
-<div class='container'>
-    <input type='submit' class="btn btn-lg btn-primary" name='Submit' value='Submit' />
-</div>
-
-</fieldset>
-</form>
-       
+        
       </div>
 
     </div> <!-- /container -->

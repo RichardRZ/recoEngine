@@ -1,46 +1,20 @@
 <?PHP
-/*
-    Registration/Login script from HTML Form Guide
-    V1.0
 
-    This program is free software published under the
-    terms of the GNU Lesser General Public License.
-    http://www.gnu.org/copyleft/lesser.html
-    
-
-This program is distributed in the hope that it will
-be useful - WITHOUT ANY WARRANTY; without even the
-implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.
-
-For updates, please visit:
-http://www.html-form-guide.com/php-form/php-registration-form.html
-http://www.html-form-guide.com/php-form/php-login-form.html
-
-*/
-require_once("class.phpmailer.php");
-require_once("formvalidator.php");
 
 class Moviesite
 {
-    var $admin_email;
-    var $from_address;
-    
+
     var $username;
     var $pwd;
     var $database;
     var $tablename;
     var $connection;
-    var $rand_key;
     
     var $error_message;
+
+    
     
     //-----Initialization -------
-    function FGMembersite()
-    {
-        $this->sitename = 'YourWebsiteName.com';
-        $this->rand_key = '0iQx5oBk66oVZep';
-    }
     
     function InitDB($host,$uname,$pwd,$database,$tablename)
     {
@@ -52,57 +26,14 @@ class Moviesite
         
     }
 
-    function InitUserDB($host,$uname,$pwd,$database,$tablename)
-    {
-        $this->db_host  = $host;
-        $this->username = $uname;
-        $this->pwd  = $pwd;
-        $this->database  = $database;
-        $this->tablename = $tablename;
-        
-    }
-
-    function SetAdminEmail($email)
-    {
-        $this->admin_email = $email;
-    }
-    
-    function SetWebsiteName($sitename)
-    {
-        $this->sitename = $sitename;
-    }
-    
-    function SetRandomKey($key)
-    {
-        $this->rand_key = $key;
-    }
-    
     //-------Main Operations ----------------------
-    
-    function CheckLogin()
-    {
-         if(!isset($_SESSION)){ session_start(); }
-
-         $sessionvar = $this->GetLoginSessionVar();
-         
-         if(empty($_SESSION[$sessionvar]))
-         {
-            return false;
-         }
-         return true;
-    }
-    
-    function UserFullName()
-    {
-        return isset($_SESSION['name_of_user'])?$_SESSION['name_of_user']:'';
-    }
-
     
     function UserEmail()
     {
         return isset($_SESSION['email_of_user'])?$_SESSION['email_of_user']:'';
     }
 
+    
 
     function GetTitleFromId($id)
     {
@@ -202,66 +133,6 @@ class Moviesite
     
     
     
-    function GetLoginSessionVar()
-    {
-        $retvar = md5($this->rand_key);
-        $retvar = 'usr_'.substr($retvar,0,10);
-        return $retvar;
-    }
-    
-    function CheckLoginInDB($username,$password)
-    {
-        if(!$this->DBLogin())
-        {
-            $this->HandleError("Database login failed!");
-            return false;
-        }          
-        $username = $this->SanitizeForSQL($username);
-        $pwdmd5 = md5($password);
-        $qry = "Select id_user, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
-        
-        $result = mysql_query($qry,$this->connection);
-        
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
-            $this->HandleError("Error logging in. The username or password does not match");
-            return false;
-        }
-        
-        $row = mysql_fetch_assoc($result);
-        
-        
-        $_SESSION['name_of_user']  = $row['name'];
-        $_SESSION['email_of_user'] = $row['email'];
-        
-        return true;
-    }
-    
-    
-    
-    function GetUserFromEmail($email,&$user_rec)
-    {
-        if(!$this->DBLogin())
-        {
-            $this->HandleError("Database login failed!");
-            return false;
-        }   
-        $email = $this->SanitizeForSQL($email);
-        
-        $result = mysql_query("Select * from $this->tablename where email='$email'",$this->connection);  
-
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
-            $this->HandleError("There is no user with email: $email");
-            return false;
-        }
-        $user_rec = mysql_fetch_assoc($result);
-
-        
-        return true;
-    }
-
-    
     function DBLogin()
     {
 
@@ -284,9 +155,6 @@ class Moviesite
         }
         return true;
     }    
-    
-    
-    
     
     
     function SanitizeForSQL($str)
