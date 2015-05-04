@@ -114,6 +114,7 @@ class Recommendationsite
         }
         $row = mysql_fetch_assoc($result);
         $valueName = $row['title'];
+
         echo '<a href="movie.php?movie_id='.urlencode($id).'">'.$valueName.'</a>';
         echo '<br>';
         return;

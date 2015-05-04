@@ -181,10 +181,13 @@ def loadMoviesFromServer(genre=None):
 		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid"
 	else:
 		sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN ((SELECT * FROM reviewsdata) UNION (SELECT * FROM user_reviews)) AS r ON m.id = r.movieid WHERE " + genre + " = 1"
+<<<<<<< HEAD
 	# if genre == None:
 	# 	sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid"
 	# else:
 	# 	sql = "SELECT m.id,r.userid,r.rating FROM movies AS m JOIN reviewsdata AS r ON m.id = r.movieid WHERE " + genre + " = 1"
+=======
+>>>>>>> b2f7f32da2eb04081711ff25100a82845e469c13
 	data.execute(sql)
 	prefs = {}
 	for row in data:
@@ -236,7 +239,7 @@ def main():
 	# print ",".join(recommend)
 
 	end_time = time.clock()
-	print("Time taken: "+str(end_time - start_time)+" seconds.\n")
+	#print("Time taken: "+str(end_time - start_time)+" seconds.\n")
 
 if __name__ == '__main__':
 	main()		

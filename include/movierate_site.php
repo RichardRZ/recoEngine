@@ -168,6 +168,7 @@ class Movieratesite
             $this->HandleError("Database login failed!");
             return false;
         }   
+
         $id = $this->SanitizeForSQL($id);
 
         $result = mysql_query("Select * from $this->tablename where movieid='$id' and userid='$userid'",$this->connection);  

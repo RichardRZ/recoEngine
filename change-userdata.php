@@ -84,6 +84,7 @@ if($usersite->CheckLogin() && isset($_POST['submitted']))
       <input type="radio" name="gender" value="M">Male<br>
       <input type="radio" name="gender" value="F">Female
     </form>
+
     <span id='register_gender_errorloc' class='error'></span>
 </div>
 <div class='container'>

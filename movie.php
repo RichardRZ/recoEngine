@@ -130,13 +130,18 @@ if($usersite->CheckLogin() && isset($_POST['Submit']) && isset($_POST['rating'])
 
 
 
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+<<<<<<< HEAD
     <script src="./js/star-rating.js" type="text/javascript"></script>
             <script src="./auto-complete.js"></script>
+=======
+
+>>>>>>> b2f7f32da2eb04081711ff25100a82845e469c13
   
 
 </body></html>
