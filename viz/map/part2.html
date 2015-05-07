@@ -1,0 +1,227 @@
+<html>
+<meta charset="utf-8">
+<head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 4: Visualization</title>
+
+</head>
+<style>
+
+.counties {
+  fill: none;
+}
+
+.states {
+  fill: rgb(241, 208, 208);
+  stroke: #f0f0f0;
+  stroke-linejoin: round;
+}
+.qNone {fill:lightgrey;}
+.q0-9 { fill:rgb(229, 3, 0); }
+.q1-9 { fill:rgb(235, 66, 63); }
+.q2-9 { fill:rgb(242, 129, 127); }
+.q3-9 { fill:rgb(238, 156, 156); }
+.q4-9 { fill:rgb(241, 208, 208); }
+
+.q5-9 { fill:rgb(153, 166, 255); }
+.q6-9 { fill:rgb(114, 133, 252); }
+.q7-9 { fill:rgb(76, 100, 250); }
+.q8-9 { fill:rgb(38, 67, 247); }
+.q9-9 { fill:rgb(0, 35, 245); }
+.mouseOver {fill:yellow;}
+
+.legend {background-color: black;}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 120px;                  
+  height: auto;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+</style>
+<body>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="page-header center">
+            <h1>Part 2: <small>Geomapping Tweet Sentiment</small></h1>
+        </div>
+        <div id="map"></div>
+        <div id="legend"></div>
+
+        <script src="js/d3.v3.min.js"></script>
+        <script src="js/queue.v1.min.js"></script>
+        <script src="js/topojson.v1.min.js"></script>
+        <script>
+
+        var width = 960,
+        height = 600;
+
+        queue()
+        .defer(d3.json, "data/us.json")
+        .defer(d3.tsv, "data/output.tsv", function(d) { 
+            sentById.set(d.id, +d.sent); 
+            nameById.set(d.id, d.name); 
+        })
+        .await(ready);
+
+        var sentById = d3.map();
+        var nameById = d3.map();
+
+        var quantize = d3.scale.quantize()
+        .domain([.0, 1.0])
+        .range(d3.range(10).map(function(i) {return "q" + (i) + "-9";}));
+
+        var projection = d3.geo.albersUsa()
+        .scale(1280)
+        .translate([width / 2, height / 2]);
+
+        var path = d3.geo.path()
+        .projection(projection);
+
+        var svg = d3.select("#map").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+        var div = d3.select("#map").append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+        function ready(error, us) {
+
+/*          svg.append("g")
+          .attr("class", "counties")
+          .selectAll("path")
+          .data(topojson.feature(us, us.objects.states).features) //us.objects.counties
+          .enter().append("path")
+          .attr("class", function(d) { 
+            return ""
+            if (sentById.get(d.id) == 0.0)
+                return "qNone"+" "+d.id
+            else
+                return quantize(sentById.get(d.id))+" "+d.id; })
+          .attr("d", path)
+          .on("mouseover", function(d) { 
+
+            d3.select(".mouseOver")
+            .classed("mouseOver", false);
+
+            d3.select(this)
+            .classed("mouseOver", true);
+            div.transition()        
+            .duration(200)      
+            .style("opacity", .9);     
+            div.html("Name: " + nameById.get(d.id) + "<br/>" +"Sentiment Score: "+ sentById.get(d.id))  
+            .style("left", (event.pageX)-220 + "px")     
+            .style("top", (event.pageY)-70 + "px");    
+        })                  
+          .on("mouseout", function(d) {       
+            div.transition()        
+            .duration(500)      
+            .style("opacity", 0);   
+        });*/
+
+          svg.append("g")
+          .attr("class", "states")
+          .selectAll("path")
+          .data(topojson.feature(us, us.objects.states).features) //us.objects.counties
+          .enter().append("path")
+          .attr("class", function(d) { 
+            if (d.id == 2 || d.id == "1")
+              return "q8-9"
+            if (d.id == 56)
+              return "q3-9"
+          })
+          .attr("d", path)
+          .on("mouseover", function(d) { 
+
+            d3.select(".mouseOver")
+            .classed("mouseOver", false);
+
+            d3.select(this)
+            .classed("mouseOver", true);
+            div.transition()        
+            .duration(200)      
+            .style("opacity", .9);     
+            div.html("Name: " + nameById.get(d.id) + "<br/>" +"Sentiment Score: "+ sentById.get(d.id))  
+            .style("left", (event.pageX)-220 + "px")     
+            .style("top", (event.pageY)-70 + "px");    
+        })                  
+          .on("mouseout", function(d) {       
+            div.transition()        
+            .duration(500)      
+            .style("opacity", 0);   
+        });
+
+/*          svg.append("path")
+          .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+          .attr("class", "states")
+          .attr("d", path);*/
+
+          var legendColors = ["lightgrey", " rgb(229, 3, 0)"," rgb(235, 66, 63)"," rgb(242, 129, 127)"," rgb(238, 156, 156)",
+          " rgb(241, 208, 208)"," rgb(153, 166, 255)"," rgb(114, 133, 252)"," rgb(76, 100, 250)"," rgb(38, 67, 247)","rgb(0, 35, 245)"];
+
+          legendElementWidth = width/legendColors.length
+
+          var legendSvg = d3.select("#legend").append("svg")
+          .attr("width", width)
+          .attr("height", 200);
+
+          var legend = legendSvg.selectAll(".legend")
+          .data(legendColors)
+          .enter().append("g")
+          .attr("class", "legend");
+
+
+          legend.append("rect")
+          .attr("x", function(d, i) { return legendElementWidth * i; })
+          .attr("y", 100)
+          .attr("width", legendElementWidth)
+          .attr("height", 30)
+          .style("fill", function(d, i) { return legendColors[i]; });
+
+          legend.append("text")
+          .attr("class", "mono")
+          .text(function(d,i) { 
+            if (i == 0)
+                return "No Data"
+            return "≥ " + "." + (i-1) })
+          .attr("x", function(d, i) { return legendElementWidth * i + legendElementWidth/5; })
+          .attr("y", 150)
+      }
+
+      d3.select(self.frameElement).style("height", height + "px");
+
+      </script>
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+          <h2>Tweet Sentiment by US County</h2>
+          <p>
+            Using sentiment data derived from tweets, this visualization maps those sentiments to US counties using the geocoded metadata and the Data Science Toolkit. 
+        </p>
+        <p>
+            Most counties fall between a sentiment score of 0.4 and 0.6, indicating a fairly even sentiment level for the country. However, there are a few outliers, and some states that have noticeably more highly negative or positive counties than others. 
+        </p>
+        <p>
+            The south appears to have a relatively high number of negative leaning counties, with Texas containing the lowest scoring county (Robertson county, with a score of .088). The midwest/central area of the US also has more highly negative counties, but those are balanced out by some neutral and positive counties as well. Given the southern region in the US in general struggles with poverty, I hypothesized a correlation between poverty levels, median income, and  sentiment. After some spot checking of some of the most negative counties, there seems to be some evidence that this is the case. However, there were also a few counties that went in exactly the opposite direction, such as Pickens County, Alabama, which despite having a high poverty rate and low median income had a tweet sentiment score of 0.72.
+        </p>
+        <p>
+            I found New England to be an interesting case, there were relatively few extremes in either direction. Considering the region contains plenty of wealth, poverty, rural areas, and urbanized areas, I expected more variability, and after digging in to some of the county by county data I could not come up with a strong differentiating factor as to why the northeast had such a strong tendency towards neutral sentiments.            
+        </p>
+        <p>
+            Overall, I came away with two questions: How much can I trust the sentiment data, and to what extent is it generalizable even if we assume the data is good? The first question came from my own experience scoring tweets. It is very difficult to programmatically assign a positive or negative sentiment, even if it were possible to divine a correct emotional score for a word, it is almost impossible to account for all of the different contexts. Also, for counties with few data points, one or two tweets could cause large swings in the sentiment score. The second question mostly stems from the assumption that twitter users represent a good sample of the population. I feel confident in saying this is not the case. Older populations, or those in poverty, are less likely to be interested or have access to twitter, and so we get a sample largely skewed towards the younger, more affluent, and tech savvy.       
+        </sent>
+
+
+    </div>
+
+</body>
+</html>
