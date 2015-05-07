@@ -47,29 +47,7 @@ if($usersite->CheckLogin() && isset($_POST['Submit']) && isset($_POST['rating'])
 
     <div class="container">
 
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="main.php">RecMovie</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="main.php">Home</a></li>
-              <li><a href="personalpage.php">Personal Profile</a></li>
-              <li><a href="recommendation.php">Recommendation Movies</a></li>
-              <li><a href="logout.php">Logout</a></li>
-            </ul>
-           
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
+     <?php include 'header.php' ?>
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
@@ -136,12 +114,6 @@ if($usersite->CheckLogin() && isset($_POST['Submit']) && isset($_POST['rating'])
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-    <script src="./js/star-rating.js" type="text/javascript"></script>
-            <script src="./auto-complete.js"></script>
-=======
-
->>>>>>> b2f7f32da2eb04081711ff25100a82845e469c13
   
 
 </body></html>
