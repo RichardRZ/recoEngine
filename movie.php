@@ -64,9 +64,8 @@ if($usersite->CheckLogin() && isset($_POST['Submit']) && isset($_POST['rating'])
 
 <div class='container'>
     <h3>Title: <?= $moviesite->GetTitleFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-    <h3>Release Date: <?= $moviesite->GetReleaseFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
     <h3>Categories:  <?= $moviesite->GetCatFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
-    <h3>Average Review Rate:  <?= $movieratesite->GetAvgRateFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
+    <h3>Average Rating:  <?= $movieratesite->GetAvgRateFromId(htmlspecialchars($_GET["movie_id"])) ?></h3>
 </div>
 
 <br>

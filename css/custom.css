@@ -5,3 +5,12 @@ body {
 .warning {
     color:red;
 }
+
+.states {
+  fill: #34495e;
+  stroke: #95a5a6;/*#f0f0f0;*/
+  stroke-linejoin: round;
+  box-shadow: 100px 100px 50px black;
+}
+
+.mouseOver {fill:#1abc9c;}

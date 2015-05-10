@@ -13,7 +13,15 @@
             <ul class="nav navbar-nav">
               <li><a href="main.php">Home</a></li>
               <li><a href="personalpage.php">Personal Profile</a></li>
-              <li><a href="recommendation.php">Recommendation Movies</a></li>
+              <li><a href="recommendation.php">Movie Recommendations</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Explore Data <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="vismap.php">Map of Favorite Movies</a></li>
+                  <li><a href="#">Another action</a></li>
+                </ul>
+              </li>
+         
               <li><a href="logout.php">Logout</a></li>
             </ul>
            

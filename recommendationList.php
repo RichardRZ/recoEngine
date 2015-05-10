@@ -21,7 +21,7 @@ if(!$usersite->CheckLogin())
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Recommendation Movies Page</title>
+    <title>Movie Recommendations</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,8 +41,8 @@ if(!$usersite->CheckLogin())
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Recommendation Movies:</h2>
-		<h3><?= $usersite->UserEmail()?>, Here is a movie list for you:</h3>
+        <!-- <h2>Recommendation Movies:</h2> -->
+		<h3><?= $usersite->UserEmail()?>, here are some movies for you to check out:</h3>
 		<p>
 			<h3><?php 
       if ($_GET['value']=='all'){

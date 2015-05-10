@@ -1,46 +1,58 @@
-<html>
-<meta charset="utf-8">
-<head>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 4: Visualization</title>
+<?php  //Start the Session
 
-</head>
-<style>
-
-.states {
-  fill: #34495e;
-  stroke: #95a5a6;/*#f0f0f0;*/
-  stroke-linejoin: round;
-  box-shadow: 100px 100px 50px black;
+require('connect.php');
+require_once("./include/config.php");
+if(!$usersite->CheckLogin())
+{
+    $usersite->RedirectToURL("logout.php");
+    exit;
 }
+?>
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-.mouseOver {fill:#1abc9c;}
+    <title>Home Page</title>
 
-</style>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
+ -->
+
+  </head>
 <body>
 
+    <div class="container">
+           <?php include 'header.php' ?>
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="page-header center">
-            <h1>The VIZZZZZZZ</h1>
-        </div>
+
         <div id="map"></div>
         <div id="legend"></div>
-
+        <script src="js/jquery.min.js"></script>
+      <script src="./js/bootstrap.min.js"></script>
         <script src="js/d3.v3.min.js"></script>
         <script src="js/queue.v1.min.js"></script>
         <script src="js/topojson.v1.min.js"></script>
-        <script src="js/jquery.min.js"></script>
+
         <script>
 
         var width = 800,
         height = 500;
 
         queue()
-        .defer(d3.json, "us.json")
-        .defer(d3.csv, "state_fav_movie.csv", function(d) { 
+        .defer(d3.json, "data/us.json")
+        .defer(d3.csv, "data/state_fav_movie.csv", function(d) { 
             sentById.set(d.id, +d.rate); 
             nameById.set(d.id, d.title); 
         })
@@ -118,6 +130,9 @@
 
 
     </div>
-
+  </div>
+  </div>
+      <script src="./js/jquery.min.js"></script>
+       <script src="./js/bootstrap.min.js"></script>
 </body>
 </html>

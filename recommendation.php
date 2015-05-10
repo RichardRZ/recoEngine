@@ -21,7 +21,7 @@ if(!$usersite->CheckLogin())
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Recommendation Movies Page</title>
+    <title>Movie Recommendations</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -43,8 +43,7 @@ if(!$usersite->CheckLogin())
       <div class="jumbotron">
         <h2>Choose your recommendation options:</h2>
         <div class="dropdown">
-        <h3>Recommends by </h3>
-    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Genre
+        <h3>Recommend by <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Genre
     <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
       <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=all">All</a></li>
@@ -67,11 +66,9 @@ if(!$usersite->CheckLogin())
       <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=War">War</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendationList.php?value=Western">Western</a></li>
     </ul>
+    </h3>
   </div>
-		
-
-
-        
+		       
       </div>
 
     </div> <!-- /container -->

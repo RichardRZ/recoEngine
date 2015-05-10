@@ -1,3 +1,13 @@
+<?php  //Start the Session
+
+require('connect.php');
+require_once("./include/config.php");
+if(!$usersite->CheckLogin())
+{
+    $usersite->RedirectToURL("logout.php");
+    exit;
+}
+?>
 <html>
 <meta charset="utf-8">
 <head>

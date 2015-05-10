@@ -90,29 +90,31 @@ class Moviesite
             return false;
         }
         $row = mysql_fetch_assoc($result);
-        $str = "";
-        $row['unknown']==1?$str = $str.' unknown':'';
-        $row['action']==1?$str = $str.' action':'';
-        $row['adventure']==1?$str =$str.' adventure':'';
-        $row['animation']==1?$str =$str.' animation':'';
-        $row['childrens']==1?$str =$str.' childrens':'';
-        $row['comedy']==1?$str =$str.' comedy':'';
-        $row['crime']==1?$str =$str.' crime':'';
-        $row['documentary']==1?$str =$str.' documentary':'';
-        $row['drama']==1?$str =$str.' drama':'';
-        $row['fantasy']==1?$str =$str.' fantasy':'';
-        $row['filmnoir']==1?$str =$str.'filmnoir':'';
-        $row['horror']==1?$str =$str.' horror':'';
-        $row['musical']==1?$str =$str.' musical':'';
-        $row['mystery']==1?$str =$str.' mystery':'';
-        $row['romance']==1?$str =$str.' romance':'';
-        $row['scifi']==1?$str =$str.' scifi':'';
-        $row['thriller']==1?$str =$str.' thriller':'';
-        $row['war']==1?$str =$str.' war':'';
-        $row['western']==1?$str =$str.' western':'';
+
+        $arr = array();
+        $row['unknown']==1?array_push($arr,'Unknown'):'';
+        $row['action']==1?array_push($arr,'Action'):'';
+        $row['adventure']==1?array_push($arr,'Adventure'):'';
+        $row['animation']==1?array_push($arr,'Animation'):'';
+        $row['childrens']==1?array_push($arr,'Childrens'):'';
+        $row['comedy']==1?array_push($arr,'Comedy'):'';
+        $row['crime']==1?array_push($arr,'Crime'):'';
+        $row['documentary']==1?array_push($arr,'Documentary'):'';
+        $row['drama']==1?array_push($arr,'Drama'):'';
+        $row['fantasy']==1?array_push($arr,'Fantasy'):'';
+        $row['filmnoir']==1?array_push($arr,'Film-noir'):'';
+        $row['horror']==1?array_push($arr,'Horror'):'';
+        $row['musical']==1?array_push($arr,'Musical'):'';
+        $row['mystery']==1?array_push($arr,'Nystery'):'';
+        $row['romance']==1?array_push($arr,'Romance'):'';
+        $row['scifi']==1?array_push($arr,'Sci-Fi'):'';
+        $row['thriller']==1?array_push($arr,'Thriller'):'';
+        $row['war']==1?array_push($arr,'War'):'';
+        $row['western']==1?array_push($arr,'Western'):'';
 
         
-        return $str;
+
+         return implode(", ",$arr);
     }
 
     

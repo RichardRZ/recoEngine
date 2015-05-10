@@ -121,7 +121,7 @@ class Movieratesite
         $row = mysql_fetch_assoc($result);
 
         
-        return isset($row['average'])?$row['average']:'No Rate';
+        return isset($row['average'])?$row['average']:'No Ratings found';
     }
 
     function GetRatedMoviesFromId($id)

@@ -38,9 +38,10 @@ if(!$usersite->CheckLogin())
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Welcome back <?= $usersite->UserEmail(); ?> !</h1>
+        <h2>Welcome back <?= $usersite->UserEmail(); ?> !</h2>
+        <br>
         
-          <a class="btn btn-lg btn-primary" href="recommendation.php" role="button">Get your recommendation movies! »</a>
+          <a class="btn btn-lg btn-primary" href="recommendation.php" role="button">Get your movie recommendations! »</a>
         </p>
       </div>
 
