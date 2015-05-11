@@ -36,5 +36,11 @@ if(!$usersite->CheckLogin())
            <h2>Average Rating by Genders</h2>
           <img src="img/gender_avg_ratings.png"  style="width:1216px;height:600px">
   </div>
+  <script src="js/jquery.min.js"></script>
+
+        <script src="js/d3.v3.min.js"></script>
+        <script src="js/queue.v1.min.js"></script>
+        <script src="js/topojson.v1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
