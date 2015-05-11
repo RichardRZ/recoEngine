@@ -40,10 +40,11 @@ if(!$usersite->CheckLogin())
         <div id="map"></div>
         <div id="legend"></div>
         <script src="js/jquery.min.js"></script>
-      <script src="./js/bootstrap.min.js"></script>
+
         <script src="js/d3.v3.min.js"></script>
         <script src="js/queue.v1.min.js"></script>
         <script src="js/topojson.v1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 
         <script>
 
@@ -132,7 +133,6 @@ if(!$usersite->CheckLogin())
     </div>
   </div>
   </div>
-      <script src="./js/jquery.min.js"></script>
-       <script src="./js/bootstrap.min.js"></script>
+
 </body>
 </html>
