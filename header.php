@@ -18,8 +18,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Explore Data <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="vismap.php">Map of Favorite Movies</a></li>
-                  <li><a href="vismap_avg.php">Map of Average Ratings</a></li>    
-                  <li><a href="#">Another action</a></li>
+                  <li><a href="vismap_avg.php">Map of Average Ratings</a></li> 
+                  <li><a href="heatmap_avg.php">HeatMap of Average Ratings</a></li>   
+                  <li><a href="genders_avg.php">Average Ratings of Genders</a></li>
                 </ul>
               </li>
          
