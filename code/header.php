@@ -20,7 +20,7 @@
                   <li><a href="vismap.php">Map of Favorite Movies</a></li>
                   <li><a href="vismap_avg.php">Map of Average Ratings</a></li> 
                   <li><a href="heatmap_avg.php">HeatMap of Average Ratings</a></li>   
-                  <li><a href="genders_avg.php">Average Ratings of Genders</a></li>
+                  <li><a href="genders_avg.php">Genre Rating by Gender</a></li>
                 </ul>
               </li>
          

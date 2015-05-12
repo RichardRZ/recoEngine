@@ -18,7 +18,7 @@ if(!$usersite->CheckLogin())
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Average Rating by Genders</title>
+    <title>Average Rating by Gender</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,8 +33,8 @@ if(!$usersite->CheckLogin())
 
     <div class="container">
            <?php include 'header.php' ?>
-           <h2>Average Rating by Genders</h2>
-          <img src="img/gender_avg_ratings.png"  style="width:1216px;height:600px">
+           <h2>Average Rating by Gender</h2>
+          <img src="img/gender_avg_ratings.png"  style="width:1216px">
   </div>
   <script src="js/jquery.min.js"></script>
 
