@@ -174,11 +174,11 @@ class Movieratesite
         $result = mysql_query("Select * from $this->tablename where movieid='$id' and userid='$userid'",$this->connection);  
         if(!$result || mysql_num_rows($result) <= 0)
         {
+
             $insert_query = 'Insert into '.$this->tablename.' values ( 
                 ' . $this->SanitizeForSQL($userid) . ',
                 ' . $this->SanitizeForSQL($id) . ',
-                ' . $this->SanitizeForSQL($rate) . ');' ;
-            
+                ' . $this->SanitizeForSQL($rate) . ', UNIX_TIMESTAMP());' ;
             if(!mysql_query( $insert_query ,$this->connection))
             {
                 $this->HandleDBError("Error inserting data to the table\nquery:$insert_query");
