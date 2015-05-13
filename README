@@ -1,0 +1,5 @@
+Movie Recommendation Engine
+
+Group: Jeremy Watson, Richen Zhang, Qiming Shao, Xiaoshuang Chen
+
+The code section contains the entire website, including the engine (both versions, item_base.py and user_base.py). The website is currently hosted at watsonly.com/project/main.php.

@@ -1,0 +1,182 @@
+<html>
+<meta charset="utf-8">
+<head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 4: Visualization</title>
+
+</head>
+<style>
+
+.states {
+/*  fill: #34495e;*/
+  stroke: #95a5a6;/*#f0f0f0;*/
+  stroke-linejoin: round;
+  box-shadow: 100px 100px 50px black;
+}
+.q0-9 { fill:rgb(229, 3, 0); }
+.q1-9 { fill:rgb(235, 66, 63); }
+.q2-9 { fill:rgb(242, 129, 127); }
+.q3-9 { fill:rgb(238, 156, 156); }
+.q4-9 { fill:rgb(241, 208, 208); }
+.q5-9 { fill:rgb(153, 166, 255); }
+.q6-9 { fill:rgb(114, 133, 252); }
+.q7-9 { fill:rgb(76, 100, 250); }
+.q8-9 { fill:rgb(38, 67, 247); }
+.q9-9 { fill:rgb(0, 35, 245); }
+
+
+
+
+.q0-9{fill:rgb(247,251,255)} 
+.q1-9{fill:rgb(222,235,247)} 
+.q2-9{fill:rgb(198,219,239)} 
+.q3-9{fill:rgb(158,202,225)} 
+.q4-9{fill:rgb(107,174,214)} 
+.q5-9{fill:rgb(66,146,198)} 
+.q6-9{fill:rgb(33,113,181)} 
+.q7-9{fill:rgb(8,81,156)} 
+.q8-9{fill:rgb(8,48,107)}
+.mouseOver {
+  stroke-width:2;
+  stroke:black;
+            
+          }
+
+
+
+
+</style>
+<body>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="page-header center">
+            <h1>The VIZZZZZZZ</h1>
+        </div>
+        <div id="map"></div>
+        <div id="legend"></div>
+
+        <script src="js/d3.v3.min.js"></script>
+        <script src="js/queue.v1.min.js"></script>
+        <script src="js/topojson.v1.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script>
+
+        var width = 800,
+        height = 500;
+
+        queue()
+        .defer(d3.json, "us.json")
+        .defer(d3.csv, "transform.csv", function(d) { 
+            rateById.set(d.id, +d.rate); 
+            nameById.set(d.id, d.name);
+        })
+        .await(ready);
+
+        var rateById = d3.map();
+        var nameById = d3.map();
+
+        var quantize = d3.scale.quantize()
+        .domain([3.38727415554, 3.99640933573])
+        .range(d3.range(9).map(function(i) {return "q" + (i) + "-9";}));
+
+        var projection = d3.geo.albersUsa()
+        .scale(900)
+        .translate([width / 2, height / 2]);
+
+        var path = d3.geo.path()
+        .projection(projection);
+
+        var svg = d3.select("#map").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+        var div = d3.select("#map").append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+        function ready(error, us) {
+
+          svg.append("g")
+          .attr("class", "states")
+          .selectAll("path")
+          .data(topojson.feature(us, us.objects.states).features)
+          .enter().append("path")
+          .attr("class", function(d) { 
+            return quantize(rateById.get(d.id))+" "+d.id;
+          })
+          .attr("d", path)
+          .on("mouseover", function(d) { 
+
+            d3.select(".mouseOver")
+            .classed("mouseOver", false);
+            $(".name_text").html(nameById.get(d.id));
+            $(".rating_text").html(rateById.get(d.id));
+
+            d3.select(this)
+            .classed("mouseOver", true);
+
+        })                  
+          .on("mouseout", function(d) {       
+            div.transition()        
+            .duration(500)      
+            .style("opacity", 0);   
+        });
+
+/*
+          var legendColors = [" rgb(247,251,255)"," rgb(222,235,247)"," rgb(198,219,239)"," rgb(158,202,225)",
+          " rgb(107,174,214)"," rgb(153, 166, 255)"," rgb(33,113,181)"," rgb(8,81,156)"," rgb(8,48,107)"];
+
+          legendElementWidth = width/legendColors.length
+
+          var legendSvg = d3.select("#legend").append("svg")
+          .attr("width", width)
+          .attr("height", 200);
+
+          var legend = legendSvg.selectAll(".legend")
+          .data(legendColors)
+          .enter().append("g")
+          .attr("class", "legend");
+
+
+          legend.append("rect")
+          .attr("x", function(d, i) { return legendElementWidth * i; })
+          .attr("y", 100)
+          .attr("width", legendElementWidth)
+          .attr("height", 30)
+          .style("fill", function(d, i) { return legendColors[i]; });
+
+          legend.append("text")
+          .attr("class", "mono")
+          .text(function(d,i) { 
+            return "≥ " + "." + (i) })
+          .attr("x", function(d, i) { return legendElementWidth * i + legendElementWidth/5; })
+          .attr("y", 150)*/
+
+      }
+
+      d3.select(self.frameElement).style("height", height + "px");
+
+      </script>
+      <div class="col-md-2"></div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Average Rating by State</div>
+        <div class="panel-body name_text">
+          -
+        </div>
+        <div class="panel-body rating_text">
+          -
+        </div>
+      </div>
+
+
+  
+        </sent>
+
+
+    </div>
+
+</body>
+</html>
