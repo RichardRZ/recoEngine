@@ -68,6 +68,25 @@
                 item-based for action:0.13 seconds
             </pre>
 
+                        <p>
+                The reason we don't have to recalculate the item similarity table and have the confidence to store a precalculated version is that grouping of similar items tend to stay the same overtime, or at least will not vary much with new data given a large initial dataset (which we have). However, for the user method, as existing users watch and rate more movies, the users who were "friends" before might no longer have the same tastes. 
+            </p>
+
+            <h2>Data Exploration and Statistical Insight</h2>
+
+            <p>
+                We plot the average rating of different genre of movies from male and female, and plot average rating of different genre of movies from different user age. 
+            </p>
+            <img src="gender_avg_ratings.png" class="img-responsive" alt="Sign in page" style="width:60%">
+            <p>
+                From the rating-gender plot, we can see that overall female tend to rate a little higher than male. However, on movies genres that are related to romance, chilren, and musical, female would have a slight significant higher rating than male. And for movies that relate to crime, war and western, which have more elements of violence and fight, male will give higher ratings than male. 
+            </p>
+
+            <img src="genre_age.png" class="img-responsive" alt="Sign in page" style="width:60%">
+            <p>
+                From the rating-age plot, we can see that older people are more generous in giving out higher rating than younger people. People in their 20s are harsh on rating movies, resulting in a lowest raing compared to users of other ages.
+            </p>
+
             <h2>Post Mortem and possible expansions</h2>
             <p>
                 Overall we are satisfied with how our project came out. We were able to hit nearly all of our 100% targets, and also managed some of our stretch goals. We found most of our issues came from mundane problems, such as underpowered hardware and dealing with things like our webhost not having all of the tech we needed (necessitating some creative library usage and command line tricks). We were disappointed that our initial user based algorithm did not work. Although after some testing we found we could increase its speed by roughly a factor of five by utilizing some precomputation, it still did not reach the speed of the item based method. 
