@@ -31,9 +31,9 @@
             <p>
                 The engine itself is written in Python, and interacts directly with the website and the MySQL database in order to make recommendations. There are some finer points to its operation that we will discuss in the algorithm/engine section.
             </p>
-
+            <img src="ds.jpg" class="img-responsive" alt="basic system diagram">
             <p>
-               When a user signs up for the first time, they are asked for some basic demographic information (age, ZIP code, gender) as well as their ratings for five movies they have already seen. When entering a movie, our site searches our movie database and only shows movies that we are able to match against (see below). This is what lets the engine make effective recommendations. Once a user has watched a movie, they are able to enter in their rating, which is added to the dataset and used to make further predictions. We also have the capability of recommending movies by genre (as specified by the dataset we are using).
+               When a user signs up for the first time, they are asked for some basic demographic information (age, ZIP code, gender) as well as their ratings for five movies they have already seen. When entering a movie, our site searches our movie database and only shows movies that we are able to match against (see below). This is what lets the engine make effective recommendations. Once a user has watched a movie, they are able to enter in their rating, which is added to the dataset and used to make further predictions. We also have the capability of recommending movies by genre (as specified by the dataset we are using). The site makes calls to the engine, which then utilizes the MySQL database to pull the relevant data. The site also makes direct queries to the database in order to update and add new reviews for movies, as well as pull in movie information when displaying recommendations
             </p>
 
             <img src="signin.png" class="img-responsive" alt="Sign in page">
